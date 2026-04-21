@@ -6,19 +6,6 @@ A production-style cloud data pipeline built on **Azure**, ingesting raw e-comme
 
 ## 📐 Architecture Overview
 
-```
-Data Sources                  Ingestion             Storage            Compute              Serving
-─────────────────             ─────────             ───────            ───────              ───────
-GitHub (REST/HTTP)  ──┐
-                      ├──► Azure Data   ──► ADLS Gen2   ──► Azure        ──► ADLS Gen2
-SQL Server          ──┘    Factory          (Bronze)        Databricks        (Silver)
-(filess.io)                                                    ▲
-                                                               │
-                                                           MongoDB
-                                                        (Enrichment)
-
-                                                         Azure Synapse ──► ADLS Gen2 (Gold)
-```
 
 ![Architecture Diagram](architecture.png)
 
@@ -99,7 +86,7 @@ olistdata/
     ├── olist_products_dataset.csv
     └── olist_sellers_dataset.csv
 ```
-
+![Bronze Folder](Bronze.png)
 ---
 
 ## 🥈 Silver Layer — Transformation (Azure Databricks)
@@ -169,7 +156,7 @@ final_df.write.mode("overwrite").parquet(
     "abfss://olistdata@oliststorageacc.dfs.core.windows.net/silver/"
 )
 ```
-
+![Silver Folder](Silver.png)
 Silver output: 4 Parquet part files (~12 MiB total, Snappy compressed).
 
 ---
@@ -233,7 +220,7 @@ olistdata/
         ├── EFA767A6-..._13_0-8.parquet
         └── EFA767A6-..._13_0-10.parquet
 ```
-
+![Gold Diagram](Gold.png)
 ---
 
 ## 🔐 Security & Authentication
