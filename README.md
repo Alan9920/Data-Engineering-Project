@@ -50,6 +50,8 @@ To demonstrate handling of **multiple data source types**, the datasets are spli
 
 ## 🔁 Pipeline Design — Azure Data Factory
 
+![ADF Pipeline Diagram](ADF.png)
+
 The ADF pipeline uses a **dynamic, config-driven pattern** to avoid hardcoding file paths:
 
 1. **Lookup Activity** reads `ForEachInput.json` from GitHub — a JSON array containing `csv_relative_url` and `file_name` for each dataset.
